@@ -21,10 +21,10 @@ def upload_file():
     if request.method == 'POST' and request.files:
         f = {'file': request.files['image']}
         try:
-            response = requests.post("http://localhost:8000/uploadfile",files = f)
+            response = requests.post("http://localhost:5050/uploadfile",files = f)
             responseText = response.text
         except Exception as e:
-            responseText = e
+            return render_template('results.html', text=e)
  
         myobj = gTTS(text=responseText,lang='en', slow=False)
         myobj.save(app.config['UPLOAD_FOLDER'] + '/speech.mp3')
